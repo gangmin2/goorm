@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Finder</title>
+
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <h1>GitHub Finder</h1>
+    </header>
+
+    <!-- 메인 -->
+    <main>
+        <!-- 검색 -->
+        <section class="box search-container">
+            <h2>Search GitHub Users</h2>
+            <p>Enter a username to fetch a user profile and repos</p>
+            <input id="search-input" class="search-input" type="text" placeholder="Enter github username">
+        </section>
+    
+        <!-- 프로필 -->
+        <section id="profile-container" class="box row-box">
+            <div class="profile-container">
+                <img id="profile-img" class="profile-img" src="" alt="profile image">
+                <a id="profile-button" class="profile-button" href="" target="_blank">View Profile</a>
+            </div>
+            <div class="profile-info-container">
+                <ul id="profile-badge-list" class="profile-badge-list">
+                </ul>
+                <div>
+                    <ul id="profile-info-list" class="profile-info-list">
+                    </ul>
+                </div>
+            </div>
+        </section>
+    
+        <!-- 최근 레포 -->
+        <section id="repos-container" class="repos-container">
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>GitHub Finder &#169;</p>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
