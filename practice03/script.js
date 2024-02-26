@@ -11,13 +11,14 @@ searchInput.addEventListener('keydown', e => {
 
 /** GitHub API 엔드포인트 URL */
 const apiUrl = 'https://api.github.com/users/';
+const githubToken = "your github token";
 
 /** 유저 정보를 가져오는 함수 */
 async function fetchUserInfo(username) {
     try {
         const response = await fetch(apiUrl + username, {
             headers: {
-                Authorization: "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",
+                Authorization: githubToken,
             }
         });
         if (response.ok) {
@@ -30,7 +31,7 @@ async function fetchUserInfo(username) {
             alert('Not Found... :(');
         }
     } catch (err) {
-        console.error(err)
+        console.error(err);
     }
 }
 
@@ -63,7 +64,7 @@ async function fetchRepos(reposUrl) {
         // 업데이트 순으로 정렬된 레포지토리 정보 가져옴.
         const response = await fetch(reposUrl + '?sort=updateed', {
             headers: {
-                Authorization: "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",
+                Authorization: githubToken,
             }
         });
         if (response.ok) {
@@ -85,7 +86,7 @@ async function renderRepos(repos) {
         const newRepo = document.createElement('div');
         newRepo.classList.add('box', 'repo-box');
         newRepo.innerHTML = `
-            <a class="f1" href=${repo.url}>${repo.name}</a>
+            <a class="f1" href=${repo.html_url}>${repo.name}</a>
             <div class="f1">
                 <span class="badge bg-primary">Stars: ${repo.stargazers_count}</span>
                 <span class="badge bg-secondary">Watchers: ${repo.watchers}</span>
