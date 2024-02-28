@@ -24,8 +24,6 @@
 - styles.css: 할 일 앱의 스타일을 정의합니다.
 - script.js: 할 일 앱의 동작을 제어하는 JavaScript 코드를 포함합니다.
 
-### 참고
-이 프로젝트는 학습 및 실습 목적으로 만들어졌으며, 실제 프로덕션 환경에서 사용되지 않습니다.
 
 ### 라이선스
 이 프로젝트는 MIT 라이선스를 따릅니다.
@@ -33,4 +31,5 @@
 
 ### Preview
 ---
-<img width="1511" alt="image" src="https://github.com/gangmin2/goorm/assets/96777845/674b6394-3a2f-4168-bd71-3d7be55538f3">
+https://github.com/gangmin2/goorm/assets/96777845/bbdc81e2-0dc8-4c62-b719-970a0d64434d
+
