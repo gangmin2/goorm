@@ -83,6 +83,10 @@ h1 {
 .todo-list i:hover {
     color: #ff4747;
 }
+.empty-container {
+    margin-top: 32px;
+    color: #888;
+}
 
 @media (max-width: 700px) {
     h1 {
@@ -96,5 +100,8 @@ h1 {
     }
     .todo-list i {
         margin-right: 4px;
+    }
+    .empty-container {
+        font-size: 14px;
     }
 }

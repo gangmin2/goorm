@@ -87,8 +87,14 @@ function renderTasks() {
     tasks.forEach(task => {
         const newTask = createTaskElement(task);
         taskList.appendChild(newTask);
-        console.log(newTask.innerHTML)
     });
+    if (tasks.length === 0) {
+        taskList.innerHTML = `
+            <div class="empty-container">
+                <p>새로운 할 일을 추가해보세요 :&#41;</p>
+            </div>
+        `
+    }
 }
 
 /** 로컬 스토리지에 tasks 배열을 저장하는 함수 */
