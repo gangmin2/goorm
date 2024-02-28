@@ -87,7 +87,11 @@ function renderTasks() {
     tasks.forEach(task => {
         const newTask = createTaskElement(task);
         taskList.appendChild(newTask);
+
+        // 새로 생성한 할 일 입력란으로 오토포커스
+        newTask.children[1].focus();
     });
+
     if (tasks.length === 0) {
         taskList.innerHTML = `
             <div class="empty-container">
