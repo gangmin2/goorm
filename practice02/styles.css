@@ -1,21 +1,32 @@
+:root {
+    --bg-primary: #fff9d5;
+    --bg-secondary: #ffffff;
+
+    --primary-color: #f8a812;
+    --primary-hover-color: #ff802b;
+    --primary-active-color: #ff5500;
+
+    --text-color: #000000;
+}
 * {
     margin: 0;
     padding: 0;
     border: 0;
     box-sizing: border-box;
+    color: var(--text-color);
 }
 button {
     cursor: pointer;
 }
 body {
-    background-color: #FFF9D5;
+    background-color: var(--bg-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
 }
 main {
-    background-color: #ffffff;
+    background-color: var(--bg-secondary);
     padding: 30px 40px;
     border-radius: 20px;
     display: flex;
@@ -30,10 +41,10 @@ header {
 
 }
 h1 {
-    color: #f8a812;
+    color: var(--primary-color);
 }
 #create-btn {
-    background-color: #f8a812;
+    background-color: var(--primary-color);
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -43,17 +54,20 @@ h1 {
     transition: all 0.4s;
 }
 #create-btn:hover {
-    background-color: #ff802b;
+    background-color: var(--primary-hover-color);
 }
 #create-btn:active {
-    background-color: #ff5500;
+    background-color: var(--primary-active-color);
 }
 .todo-list li {
     display: flex;
     margin-top: 32px;
 }
+.todo-list input {
+    background-color: var(--bg-secondary);
+}
 .todo-list input[type=checkbox] {
-    accent-color: #f8a812;
+    accent-color: var(--primary-color);
     cursor: pointer;
 }
 .todo-list input[type=text] {
@@ -68,7 +82,7 @@ h1 {
     text-decoration: line-through;
 }
 .todo-list li input[type=text]:focus {
-    border-bottom: 2px solid #f8a812;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .todo-list button {
@@ -103,5 +117,18 @@ h1 {
     }
     .empty-container {
         font-size: 14px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #181a22;
+        --bg-secondary: #222222;
+    
+        --primary-color: #7181ac;
+        --primary-hover-color: #7181acab;
+        --primary-active-color: #7181ac5b;
+
+        --text-color: #ffffff;
     }
 }
