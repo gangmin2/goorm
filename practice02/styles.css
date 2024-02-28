@@ -20,12 +20,14 @@ main {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    width: 500px;
+    max-width: 500px;
+    width: 90%;
 }
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
 h1 {
     color: #f8a812;
@@ -57,14 +59,11 @@ h1 {
 .todo-list input[type=text] {
     border-bottom: 1px solid #cccccc;
     flex: 1;
-    margin: 0px 16px;
+    margin: 0 8px 0 12px;
     outline: none;
     transition: all 0.4s;
 }
-.todo-list input[type=text]:disabled {
-    background-color: #ffffff;
-}
-.completed input[type=text] {
+.completed {
     color: #aaaaaa;
     text-decoration: line-through;
 }
@@ -74,12 +73,28 @@ h1 {
 
 .todo-list button {
     background: none;
-    padding: 8px;
-    background-color: #f8f8f8;
-    border-radius: 50%;
     margin-left: 8px;
-    transition: all 0.4s;
 }
-.todo-list button:hover {
-    background-color: #eee;
+.todo-list i {
+    color: #ff7575;
+    font-size: 18px;
+    margin-right: 16px;
+}
+.todo-list i:hover {
+    color: #ff4747;
+}
+
+@media (max-width: 700px) {
+    h1 {
+        font-size: 24px;
+    }
+    #create-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 24px;
+        font-weight: normal;
+    }
+    .todo-list i {
+        margin-right: 4px;
+    }
 }

@@ -1,124 +1,101 @@
-const createBtn = document.getElementById('create-btn');
-const list = document.getElementById('list');
-
+// 할 일 목록을 담을 배열 선언 및 초기화
 let tasks = [];
 
-// 페이지가 로드될 때 로컬 스토리지에서 데이터를 검색하여 tasks 배열에 할당
-if(localStorage.getItem('tasks')) {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
+// 할 일 목록을 표시할 요소와 할 일 추가 버튼 요소 가져옴.
+const taskList = document.getElementById('list-items');
+const createBtn = document.getElementById('create-btn');
+
+/** 초기화 함수: 로컬 스토리지에서 데이터를 불러와 tasks 배열에 할 일을 설정 */
+function initializedTask() {
+    // 로컬 스토리지에서 할 일 데이터 불러오기
+    // 만약 데이터가 없다면 빈 배열 할당
+    tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    // 할 일 목록 화면에 렌더링
     renderTasks();
+    console.log(tasks);
+}
+
+/** 할 일 요소 생성 함수: 각 할 일에 대한 요소를 생성하고 반환 */
+function createTaskElement(task) {
+    const newTask = document.createElement('li');
+    let checkboxElement = task.completed ? '<input id="checkbox-input" type="checkbox" checked>' : '<input id="checkbox-input" type="checkbox">';
+    let completedClass = task.completed ? 'class="completed"' : '';
+    newTask.innerHTML = `
+        ${checkboxElement}
+        <input ${completedClass} id="text-input" type="text" value=${task.content || ''}>
+        <button id="delete-btn">
+            <i class="fa-solid fa-circle-minus"></i>
+        </button>
+    `;
+
+    const checkbox = newTask.children[0];
+    const textInput = newTask.children[1];
+    const deleteBtn = newTask.children[2];
+
+    // 체크박스 변경 시 task 객체 업데이트 및 저장
+    checkbox.addEventListener('change', () => {
+        task.completed = checkbox.checked;
+        if (checkbox.checked) {
+            textInput.classList.add('completed');
+        } else {
+            textInput.classList.remove('completed');
+        }
+        saveStorage();
+    });
+
+    // 텍스트 입력란 변경 시 task 객체 업데이트 및 저장
+    textInput.addEventListener('input', () => {
+        task.content = textInput.value;
+        saveStorage();
+    });
+
+    // 삭제 버튼 클릭 시 해당 할 일 삭제
+    deleteBtn.addEventListener('click', () => {
+        const index = tasks.indexOf(task);
+        if (index !== -1) {
+            tasks.splice(index, 1);
+            saveStorage();
+            renderTasks();
+        }
+    });
+
+    return newTask;
+}
+
+/** 할 일 추가 함수: 새로운 할 일을 생성하고 tasks 배열에 추가 */
+function addTask() {
+    // 새로운 할 일 객체 생성
+    const task = {
+        completed: false,
+        content: '',
+        id: Date.now(),
+    }
+
+    // 할 일 객체를 tasks 배열에 추가
+    tasks.push(task);
+
+    // 로컬 스토리지에 변경된 tasks 배열 저장
+    saveStorage();
+
+    // 할 일 목록 다시 렌더링
+    renderTasks();
+}
+
+/** 할 일 렌더링 함수: tasks 배열의 할 일들을 HTML 문서에 렌더링 */
+function renderTasks() {
+    taskList.innerHTML = '';
+    tasks.forEach(task => {
+        const newTask = createTaskElement(task);
+        taskList.appendChild(newTask);
+    });
+}
+
+/** 로컬 스토리지에 tasks 배열을 저장하는 함수 */
+function saveStorage() {
+    // tasks 배열을 로컬 스토리지에 문자열로 저장
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 createBtn.addEventListener('click', addTask);
-
-function addTask() {
-    const task = {
-        id: new Date().getTime(),
-        text: '',
-        completed: false
-    }
-
-    tasks.push(task);
-    saveTasksToLocalStorage(); // 새로운 작업을 추가할 때마다 로컬 스토리지에 데이터 저장
-    renderTasks();
-
-    // 새로운 항목이 생성될 때 자동으로 포커스 설정
-    const newInputEl = document.getElementById(`input-${task.id}`);
-    if (newInputEl) {
-        newInputEl.removeAttribute('disabled');
-        newInputEl.focus();
-    }
-}
-
-function renderTasks() {
-    list.innerHTML = ''; // 이전에 렌더링된 항목 제거
-
-    tasks.forEach(task => {
-        const {
-            taskEl,
-            checkboxEl,
-            inputEl,
-            editBtnEl,
-            removeBtnEl,
-        } = createTaskElement(task);
-
-        list.prepend(taskEl);
-
-        inputEl.focus(); // 새로운 항목이 생성될 때 자동으로 포커스 설정
-
-        editBtnEl.addEventListener('click', () => {
-            inputEl.removeAttribute('disabled');
-            inputEl.focus();
-        });
-
-        removeBtnEl.addEventListener('click', () => {
-            taskEl.remove();
-            tasks = tasks.filter(item => item.id !== task.id);
-            saveTasksToLocalStorage(); // 항목 삭제 시 로컬 스토리지 업데이트
-        });
-
-        // 포커스가 해제되면 자동으로 disabled 속성 추가
-        inputEl.addEventListener('blur', () => {
-            inputEl.setAttribute('disabled', '');
-            saveTasksToLocalStorage(); // 포커스 해제 시 로컬 스토리지 업데이트
-        });
-    });
-}
-
-function createTaskElement(task) {
-    const taskEl = document.createElement('li');
-    taskEl.classList.add('task');
-
-    const checkboxEl = document.createElement('input');
-    checkboxEl.type = 'checkbox';
-    checkboxEl.checked = task.completed;
-
-    checkboxEl.addEventListener('change', () => {
-        task.completed = checkboxEl.checked;
-
-        if (task.completed) {
-            taskEl.classList.add('completed');
-        } else {
-            taskEl.classList.remove('completed');
-        }
-
-        saveTasksToLocalStorage(); // 체크박스 상태가 변경될 때마다 로컬 스토리지에 데이터 저장
-    });
-
-    const inputEl = document.createElement('input');
-    inputEl.type = 'text';
-    inputEl.value = task.text;
-
-    // 올바른 ID를 설정하여 input 요소에 포커스를 설정할 수 있도록 함
-    inputEl.id = `input-${task.id}`;
-
-    inputEl.setAttribute('disabled', ''); // 초기에는 입력 비활성화 상태로 시작
-
-    inputEl.addEventListener('input', () => {
-        task.text = inputEl.value;
-        saveTasksToLocalStorage(); // 입력 내용이 변경될 때마다 로컬 스토리지에 데이터 저장
-    });
-
-    const editBtnEl = document.createElement('button');
-    editBtnEl.innerText = '✏️';
-
-    const removeBtnEl = document.createElement('button');
-    removeBtnEl.innerText = '🗑️';
-
-    taskEl.append(checkboxEl);
-    taskEl.append(inputEl);
-    taskEl.append(editBtnEl);
-    taskEl.append(removeBtnEl);
-
-    return {
-        taskEl,
-        checkboxEl,
-        inputEl,
-        editBtnEl,
-        removeBtnEl,
-    }
-}
-
-function saveTasksToLocalStorage() {
-    localStorage.setItem('tasks', JSON.stringify(tasks)); // tasks 배열을 로컬 스토리지에 문자열로 저장
-}
+initializedTask();
