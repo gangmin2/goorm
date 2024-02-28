@@ -13,7 +13,6 @@ function initializedTask() {
 
     // 할 일 목록 화면에 렌더링
     renderTasks();
-    console.log(tasks);
 }
 
 /** 할 일 요소 생성 함수: 각 할 일에 대한 요소를 생성하고 반환 */
@@ -23,7 +22,7 @@ function createTaskElement(task) {
     let completedClass = task.completed ? 'class="completed"' : '';
     newTask.innerHTML = `
         ${checkboxElement}
-        <input ${completedClass} id="text-input" type="text" value=${task.content || ''}>
+        <input ${completedClass} id="text-input" type="text" value="${task.content || ''}">
         <button id="delete-btn">
             <i class="fa-solid fa-circle-minus"></i>
         </button>
@@ -88,6 +87,7 @@ function renderTasks() {
     tasks.forEach(task => {
         const newTask = createTaskElement(task);
         taskList.appendChild(newTask);
+        console.log(newTask.innerHTML)
     });
 }
 
