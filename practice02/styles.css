@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SokchoBadaDotum';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaDotum.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 :root {
     --bg-primary: #fff9d5;
     --bg-secondary: #ffffff;
@@ -14,6 +26,7 @@
     border: 0;
     box-sizing: border-box;
     color: var(--text-color);
+    font-family: 'Pretendard-Regular';
 }
 button {
     cursor: pointer;
@@ -42,6 +55,7 @@ header {
 }
 h1 {
     color: var(--primary-color);
+    font-family: 'SokchoBadaDotum';
 }
 #create-btn {
     background-color: var(--primary-color);
