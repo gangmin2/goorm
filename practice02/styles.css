@@ -80,23 +80,23 @@ h1 {
 .todo-list input {
     background-color: var(--bg-secondary);
 }
-.todo-list input[type=checkbox] {
+.todo-list input[type="checkbox"] {
     accent-color: var(--primary-color);
     cursor: pointer;
 }
-.todo-list input[type=text] {
+.todo-list input[type="text"] {
     border-bottom: 1px solid #cccccc;
-    flex: 1;
+    flex-grow: 1;
     margin: 0 8px 0 12px;
     outline: none;
     transition: all 0.4s;
 }
+.todo-list li input[type="text"]:focus {
+    border-bottom: 2px solid var(--primary-color);
+}
 .completed {
     color: #aaaaaa;
     text-decoration: line-through;
-}
-.todo-list li input[type=text]:focus {
-    border-bottom: 2px solid var(--primary-color);
 }
 
 .todo-list button {
@@ -117,6 +117,9 @@ h1 {
 }
 
 @media (max-width: 700px) {
+    main {
+        padding: 30px 24px;
+    }
     h1 {
         font-size: 24px;
     }
